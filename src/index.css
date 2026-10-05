@@ -1,0 +1,103 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+
+  --color-canvas: #0e1621;
+  --color-surface: #17212b;
+  --color-surface-2: #202b36;
+  --color-surface-3: #26323f;
+  --color-line: #24303c;
+
+  --color-ink: #e9eef3;
+  --color-muted: #8b98a5;
+
+  --color-accent: #21a552;
+  --color-accent-strong: #1c8f47;
+  --color-accent-soft: #21a55226;
+  --color-danger: #e35d6a;
+  --color-warning: #e0a53a;
+
+  --color-bubble-in: #202b36;
+  --color-bubble-out: #2c5f42;
+
+  --radius-lg: 12px;
+  --radius-xl: 18px;
+
+  --animate-pop: pop 0.16s ease-out;
+  --animate-pulse-dot: pulse-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent/60;
+  }
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-3) transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-surface-3);
+    border-radius: 999px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@utility chat-canvas {
+  background-color: var(--color-canvas);
+  background-image: radial-gradient(
+    700px 360px at 82% -10%,
+    color-mix(in oklab, var(--color-accent) 8%, transparent),
+    transparent 70%
+  );
+}
+
+/* Ограничивает ширину контента чата на широких экранах, не давая ему растягиваться. */
+@utility chat-column {
+  width: 100%;
+  max-width: 48rem;
+  margin-inline: auto;
+}
